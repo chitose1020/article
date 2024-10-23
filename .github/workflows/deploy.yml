@@ -22,4 +22,4 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           projectName: chito
           directory: YOUR_DIRECTORY_OF_STATIC_ASSETS
-          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+          gitHubToken: ${{ secrets.TOKEN_GITHUB }}
