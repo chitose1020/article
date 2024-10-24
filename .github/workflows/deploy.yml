@@ -1,4 +1,4 @@
-name: Deploy to Cloudflare Pages
+name: Trigger Pages Deploy
 
 on:
   push:
@@ -8,20 +8,14 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+      - name: Checkout article repository
+        uses: actions/checkout@v3
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: "14"
-
-      - name: Deploy to Cloudflare Pages
-        uses: cloudflare/pages-action@v1
-        with:
-          api-token: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          account-id: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          project-name: "your-cloudflare-project-name"
-          directory: "."
+      - name: Trigger deploy in chitose1020.github.io
+        run: |
+          curl -X POST \
+            -H "Authorization: Bearer ${{ secrets.GH_PAGES_TOKEN }}" \
+            -H "Accept: application/vnd.github.v3+json" \
+            https://api.github.com/repos/chitose1020/chitose1020.github.io/actions/workflows/deployPages.yml/dispatches \
+            -d '{"ref":"main"}'
